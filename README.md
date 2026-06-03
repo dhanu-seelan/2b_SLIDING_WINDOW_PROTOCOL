@@ -42,11 +42,9 @@ while True:
 ```
 ## OUPUT
 
-##Client Side
-<img width="525" height="391" alt="image" src="https://github.com/user-attachments/assets/ea8d5785-c706-4c20-9d6f-b4cf4c713da7" />
 
-##Server Side
-<img width="537" height="353" alt="image" src="https://github.com/user-attachments/assets/880d79a9-0fa5-4518-9bf1-2e7adf56ca18" />
+<img width="1311" height="338" alt="image" src="https://github.com/user-attachments/assets/0457ea6a-9af6-46cb-b9b7-ef5284916bc6" />
+
 
 
 ## RESULT
