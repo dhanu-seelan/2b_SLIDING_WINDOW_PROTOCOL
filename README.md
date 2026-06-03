@@ -12,32 +12,56 @@
 ##Client Side
 ```
 import socket
+
 s = socket.socket()
-s.bind(('localhost',8002))
+s.bind(('localhost', 8002))
 s.listen(5)
+
+print("Waiting for connection...")
 c, addr = s.accept()
-ListSize = int(input("Enter the number of frames to send : "))
-List = list(range(ListSize))
-WindowSize = int(input("Enter Window Size : "))
-st, i = 0, 0
-while True:
-    while(i < ListSize):
-        st += WindowSize
-        c.send(str(List[i:st]).encode())
-        Acknowledgment = c.recv(1024).decode()
-        if Acknowledgment:
-            print(Acknowledgment)
-            i+=st
+print("Connected to:", addr)
+
+ListSize = int(input("Enter the number of frames to send: "))
+frames = list(range(ListSize))
+
+WindowSize = int(input("Enter Window Size: "))
+
+i = 0
+
+while i < ListSize:
+    end = min(i + WindowSize, ListSize)
+
+    # Send frames within the current window
+    c.send(str(frames[i:end]).encode())
+
+    acknowledgment = c.recv(1024).decode()
+
+    if acknowledgment:
+        print("Received:", acknowledgment)
+        i = end      # Move to the next window
+
+c.close()
+s.close()
 ```
 
 ##Server side
 ```
 import socket
+
 s = socket.socket()
 s.connect(('localhost', 8002))
+
 while True:
-    print(s.recv(1024).decode())
-    s.send("Acknowledgement received from the server".encode())
+    data = s.recv(1024).decode()
+
+    if not data:  # Server has closed the connection
+        break
+
+    print("Received:", data)
+
+    s.send("Acknowledgement received from the client".encode())
+
+s.close()
 
 ```
 ## OUPUT
